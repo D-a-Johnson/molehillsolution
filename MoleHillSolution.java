@@ -27,7 +27,7 @@ class Solution {
                 } else if (floodMap[x][y].equals("+") || floodMap[x][y].equals("-")){ //checks corner or edge
                     if(floodMap[x][y+1].equals("+") || floodMap[x][y+1].equals("-") || floodMap[x][y+1].equals("o") || floodMap[x][y+1].equals(" ")){ //checks one to the right of previous
                         try { //can meet out of bounds if on edge of map
-                            if (floodMap[x-1][y+1].matches("o") || floodMap[x-1][y+1].matches(" ") || floodMap[x-1][y+1].matches("-") || floodMap[x+1][y+1].matches("o") || floodMap[x+1][y+1].matches(" ") || floodMap[x+1][y+1].matches("-")){ //checks above and below previous
+                            if (isPlusOrMinus(floodMap, x-1, y+1) || floodMap[x+1][y+1].matches("o") || floodMap[x+1][y+1].matches(" ") || floodMap[x+1][y+1].matches("-")){ //checks above and below previous
                               valid = true;
                             }else {
                             valid = false;
@@ -46,6 +46,14 @@ class Solution {
             valid = false; //resets validation, check initilization
         }
         return count; //returns o count
+    }
+
+    public static boolean isPlusOrMinus(String [][] floodMap, int x, int y){
+        Set<String> values = new HashSet<String>(Arrays.asList("o"," ", "-"));
+        if (values.contains(floodMap[x][y])){
+            return true;
+        }
+        return false;
     }
 
     public static void floodFill(String [][] map){
